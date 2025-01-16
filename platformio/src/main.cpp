@@ -225,6 +225,11 @@ void setup()
     powerOffDisplay();
     beginDeepSleep(startTime, &timeInfo);
   }
+  
+  // Print WiFi IP address
+  IPAddress ip = WiFi.localIP();
+  Serial.print("WiFi connected. IP address: ");
+  Serial.println(ip);
 
   // TIME SYNCHRONIZATION
   configTzTime(TIMEZONE, NTP_SERVER_1, NTP_SERVER_2);
@@ -348,4 +353,3 @@ void setup()
 void loop()
 {
 } // end loop
-

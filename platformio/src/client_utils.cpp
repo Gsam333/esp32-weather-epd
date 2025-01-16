@@ -152,19 +152,12 @@ bool waitForSNTPSync(tm *timeInfo)
   int attempts = 0;
   bool rxSuccess = false;
   DeserializationError jsonErr = {};
-  String uri = "/data/" + OWM_ONECALL_VERSION
-               + "/onecall?lat=" + LAT + "&lon=" + LON + "&lang=" + OWM_LANG
-               + "&units=standard&exclude=minutely";
-#if !DISPLAY_ALERTS
-  // exclude alerts
-  uri += ",alerts";
-#endif
+  String uri = "/data/2.5/weather?q=" + CITY_STRING + "&units=metric&lang=" + OWM_LANG
+               + "&appid=" + OWM_APIKEY;
 
   // This string is printed to terminal to help with debugging. The API key is
   // censored to reduce the risk of users exposing their key.
-  String sanitizedUri = OWM_ENDPOINT + uri + "&appid={API key}";
-
-  uri += "&appid=" + OWM_APIKEY;
+  String sanitizedUri = OWM_ENDPOINT + uri;
 
   Serial.print(TXT_ATTEMPTING_HTTP_REQ);
   Serial.println(": " + sanitizedUri);
@@ -289,4 +282,3 @@ void printHeapUsage() {
                  + String(ESP.getMaxAllocHeap()) + " B");
   return;
 }
-
